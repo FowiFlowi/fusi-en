@@ -1,0 +1,94 @@
+html
+	head
+		title Fusi-en
+
+		meta(name='viewport' content='width-device-width, initial-scale=1.0')
+
+		script(src='https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js')
+		script(src='http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.js')
+		script(src='http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-animate.min.js')
+		script(src='http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-aria.min.js')
+		script(src='http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-messages.min.js')
+		script(src='http://ngmaterial.assets.s3.amazonaws.com/svg-assets-cache.js')
+
+		//- script(src='app/app.js')
+		//- script(src='app/controllers/mainController.js')
+		//- script(src='app/controllers/authController.js')
+		//- script(src='app/controllers/listController.js')
+		//- script(src='app/directives/eventFocus.js')
+		//- script(src='app/services/words.js')
+		//- script(src='app/services/users.js')
+		//- script(src='app/services/focus.js')
+		script(src='build/angular-project.js')
+
+		link(href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet')
+		link(href='https://fonts.googleapis.com/icon?family=Material+Icons' rel='stylesheet')
+		link(href='http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.css' rel='stylesheet')
+		link(href='css/styles.css' rel='stylesheet')
+
+	body(ng-app="app" ng-controller='mainController' ng-cloak='')
+		div.head(md-whiteframe='24')
+			span#logo Intermediate Group
+			span#nick {{user.username}}
+		
+		md-progress-circular(md-mode='indeterminate' ng-disabled='loading.ready' ng-style='{display: loading.displayStyle}')
+
+		div(ng-show='loading.ready')
+			center(ng-hide='user.isAuth' ng-controller='authController')
+				form(ng-submit='who()')
+					div.auth(ng-show='firstClick')
+						md-input-container.md-block(md-no-float='')
+							input(type='text' placeholder='name' autofocus ng-model='name')
+						md-input-container.md-block(md-no-float='')
+							input(type='password' placeholder='password' ng-model='pass')
+							span#wrongPass {{wrong}}
+					md-button.md-raised(type='submit') {{buttonText}}
+			
+			div.list(ng-controller='listController')
+				div.info(md-whiteframe='19')
+					center
+						b {{listLength}} 
+						| words 
+						span(ng-show='user.isAuth') and 
+							b {{user.wordsAmount}} 
+							| of them is your
+				hr
+				center
+					md-tabs(md-dynamic-height='' md-border-bottom='' md-selected='tabIndex' md-swipe-content='true')
+						md-tab(label='all')
+							md-content
+								table
+									tr
+										th WORD
+										th TRANSLATE
+									tr(ng-repeat='word in wordList')
+										td {{word.word}}
+										td {{word.translate}}
+						div(ng-repeat='author in userList')
+							md-tab(label='{{author.username}}')
+								md-content
+									table
+										tr
+											th WORD
+											th TRANSLATE
+											th
+										tr(ng-repeat='word in wordList | filter: {author: author.username}')
+											td {{word.word}}
+											td {{word.translate}}
+											td(ng-if='user.username == author.username')
+												md-button#deleteButton(ng-click='deleteWord($index)')
+													i(class='material-icons md-18') delete
+
+					form#addWordForm(ng-submit='addWord()' ng-show='FABpressed')
+						md-input-container.md-block(md-no-float='')
+							input(type='text' id='wordInput' placeholder='word' ng-model='word' autocomplete='off')
+						md-input-container.md-block(md-no-float='')
+							input(type='text' placeholder='translate' ng-model='translate' autocomplete='off')
+					section
+						md-button.md-fab(ng-show='user.isAuth' aria-label='Eat cake' event-focus='click' event-focus-id='wordInput' type='submit' form='addWordForm')
+							i.material-icons {{buttonIcon}}
+
+		footer(ng-hide='hideFooter') created by 
+			a(href='https://vk.com/fowi3') Nikolay Simotiuk 
+			| with 
+			i(class='material-icons md-12') favorite

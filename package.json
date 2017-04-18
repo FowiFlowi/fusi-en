@@ -1,0 +1,40 @@
+{
+  "name": "fusien",
+  "version": "1.0.0",
+  "description": "for fusion school",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/FowiFlowi/fusiEn.git"
+  },
+  "author": "Fowi",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/FowiFlowi/fusiEn/issues"
+  },
+  "homepage": "https://github.com/FowiFlowi/fusiEn#readme",
+  "dependencies": {
+    "body-parser": "^1.16.0",
+    "connect-mongo": "^1.3.2",
+    "express": "^4.14.1",
+    "express-session": "^1.15.2",
+    "jade": "^1.11.0",
+    "mongoose": "^4.8.1",
+    "nconf": "^0.8.4",
+    "path": "^0.12.7",
+    "winston": "^2.3.1"
+  },
+  "devDependencies": {
+    "babel-preset-es2015": "^6.24.1",
+    "gulp": "^3.9.1",
+    "gulp-babel": "^6.1.2",
+    "gulp-changed": "^2.0.0",
+    "gulp-concat": "^2.6.1",
+    "gulp-filesize": "0.0.6",
+    "gulp-uglify": "^2.1.2"
+  }
+}

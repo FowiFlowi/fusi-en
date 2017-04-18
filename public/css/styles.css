@@ -1,0 +1,146 @@
+body {
+  padding: 0;
+  margin: 0;
+  overflow-x: hidden;
+}
+
+md-progress-circular {
+  display: block;
+  margin: auto;
+  margin-top: 20%;
+}
+
+
+.head {
+  background-color: #4a148c;
+  display: flex;
+  align-items: center;
+}
+
+#logo {
+  color: white;
+  font-size: 110%;
+  margin: 1em;
+}
+#nick {
+  position: absolute;
+  right: 3%;
+  color: #AAAAAA;
+}
+
+.auth {
+  width: 50%; 
+  max-width: 200px;
+}
+#wrongPass {
+  font-size: 80%;
+  color: red;
+}
+
+.info {
+  padding: 1em;
+}
+
+.list {
+  margin-bottom: 16%;
+}
+
+md-tabs {
+  max-width: 980px;
+}
+
+table {
+  margin: auto;
+  padding: 0;
+  width: 100%;
+  border-collapse: collapse;
+  text-align: center;
+  border-left: 1px solid grey;
+  border-right: 1px solid grey;
+  border-bottom: 1px solid grey;
+  overflow: hidden;
+  margin-bottom: 1%;
+}
+table tr:nth-child(odd) {
+  background-color: #f1f1f1;
+}
+table tr:nth-child(even) {
+  background-color: #ffffff;
+}
+th {
+  border-top: 1px solid black;
+  background-color: #4a148c ;
+  color: white;
+  padding-top: 2%;
+  padding-bottom: 1%
+}
+td {
+  padding: 1em;
+}
+table tr td:nth-child(3) {
+    padding: 0;
+}
+
+#delete {
+  padding: 0;
+  margin: 0;
+}
+
+section {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  margin-top: 24px;
+  margin-bottom: 16px; 
+  margin-right: 16px;
+  z-index: 99; 
+}
+
+#addWordForm {
+  align: center;
+  margin: auto;
+  max-width: 980px;
+  display: table;
+  margin-bottom: 15%;
+}
+
+#addWordForm md-input-container {
+  display: table-cell;
+  width: 490px;
+  max-width: 490px;
+}
+
+footer {
+  background-color: #805d98;
+  padding: 1em;
+  text-align: center;
+  font-family: "Open Sans Condensed";
+  font-style: normal;
+  font-weight: 300;
+  font-size: 0.7em;
+  color: #c1bac5;
+
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+}
+
+footer a {
+  text-decoration: none;
+  color: #c1bac5;
+  outline: none;
+}
+footer a:hover {
+  color: #a4a2a5;
+}
+
+.material-icons.md-12 {
+  font-size: 12px;
+}
+.material-icons.md-18 {
+  font-size: 18px;
+}
+
+#deleteButton {
+  min-width: 1%;
+}
