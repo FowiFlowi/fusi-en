@@ -3,8 +3,8 @@ const logger = require('../utils/logger'),
 	config = require('../config'),
 	Fuser = new require('../models/fuser'),
 	Fusien = new require('../models/fusien'),
-	Word = new require('../models/word')
-let timeToNextClass = 0;
+	Word = new require('../models/word'),
+	translate = require('google-translate-api')
 
 exports.getRoot = (req, res) => res.status(200).redirect('/home')
 exports.getHome = (req, res) => res.render('index')
@@ -105,18 +105,12 @@ exports.postWho = (req, res) => {
 		res.send('wrong')
 }
 
+exports.postTranslate = (req, res) => {
+	let body = req.body
 
-
-Fusien.findOne({})
-.then(fusien => {
-	timeToNextClass = fusien.nextClass
-	if (new Date() > fusien.nextClass) {
-		fusien.flagClass ? fusien.nextClass += 1000 * 60 * 60 * 24 * 2 // 2 days
-						 : fusien.nextClass += 1000 * 60 * 60 * 24 * 5 // 5 days
-
-		fusien.flagClass = !fusien.flagClass
-		fusien.save(e => e && logger.error(e))
-	}
-})
-.then(() => setInterval(() => timeToNextClass += 1000 * 60, 1000 * 60))
-.catch(e => logger.error(e))
+	translate(body.text, { from: body.from, to: body.to, raw: true })
+	.then(result => {
+		let a = eval(result.raw)
+		res.send(a[0][0][0])
+	})
+}

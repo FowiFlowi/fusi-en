@@ -1,4 +1,4 @@
-app.controller('listController', ['$scope', '$http', 'words', function($scope, $http, words) {
+app.controller('listController', ['$scope', '$http', '$timeout', 'words', function($scope, $http, $timeout, words) {
     words.get().then(list => {
         $scope.wordList = list
         $scope.listLength = list.length
@@ -44,7 +44,7 @@ app.controller('listController', ['$scope', '$http', 'words', function($scope, $
         }
     }
 
-    $scope.deleteWord = (index) => {
+    $scope.deleteWord = index => {
         let userWords = []
 
         words.get().then(list => {
@@ -57,5 +57,31 @@ app.controller('listController', ['$scope', '$http', 'words', function($scope, $
             $scope.user.wordsAmount--
             $scope.listLength--
         })
+    }
+
+    let timer;
+    $scope.onInputWord = text => {
+        $timeout.cancel(timer)
+
+        if ($scope.word) {
+
+            timer = $timeout(() => {
+                $http.post('/translate', { text, from: 'en', to: 'ru' })
+                .then(res => $scope.translate = res.data.toLowerCase())
+            }, 300)
+
+        } else $scope.translate = ''
+    }
+    $scope.onInputTranslate = text => {
+        $timeout.cancel(timer)
+
+        if ($scope.translate) {
+
+            timer = $timeout(() => {
+                $http.post('/translate', { text, from: 'ru', to: 'en' })
+                .then(res => $scope.word = res.data.toLowerCase())
+            }, 300)
+
+        } else $scope.word = ''
     }
 }])

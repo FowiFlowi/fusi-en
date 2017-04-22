@@ -11,14 +11,6 @@ html
 		script(src='http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-messages.min.js')
 		script(src='http://ngmaterial.assets.s3.amazonaws.com/svg-assets-cache.js')
 
-		//- script(src='app/app.js')
-		//- script(src='app/controllers/mainController.js')
-		//- script(src='app/controllers/authController.js')
-		//- script(src='app/controllers/listController.js')
-		//- script(src='app/directives/eventFocus.js')
-		//- script(src='app/services/words.js')
-		//- script(src='app/services/users.js')
-		//- script(src='app/services/focus.js')
 		script(src='build/angular-project.js')
 
 		link(href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet')
@@ -81,9 +73,10 @@ html
 
 					form#addWordForm(ng-submit='addWord()' ng-show='FABpressed')
 						md-input-container.md-block(md-no-float='')
-							input(type='text' id='wordInput' placeholder='word' ng-model='word' autocomplete='off')
+							input(type='text' id='wordInput' placeholder='word' ng-model='word' autocomplete='off' ng-change='onInputWord(word)')
 						md-input-container.md-block(md-no-float='')
-							input(type='text' placeholder='translate' ng-model='translate' autocomplete='off')
+							input(type='text' placeholder='translate' ng-model='translate' autocomplete='off' ng-change='onInputTranslate(translate)')
+
 					section
 						md-button.md-fab(ng-show='user.isAuth' aria-label='Eat cake' event-focus='click' event-focus-id='wordInput' type='submit' form='addWordForm')
 							i.material-icons {{buttonIcon}}

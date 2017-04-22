@@ -10,4 +10,6 @@ module.exports = function (app) {
 
 	app.get('/who', main.getWho)
 	app.post('/who', main.postWho)
+
+	app.post('/translate', main.postTranslate)
 }
