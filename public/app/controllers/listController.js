@@ -59,29 +59,34 @@ app.controller('listController', ['$scope', '$http', '$timeout', 'words', functi
         })
     }
 
-    let timer;
+
+    let timer,
+        changeWord = true,
+        changeTranslate = true
     $scope.onInputWord = text => {
         $timeout.cancel(timer)
+        changeWord = false
 
-        if ($scope.word) {
+        if ($scope.word && changeTranslate) {
 
             timer = $timeout(() => {
                 $http.post('/translate', { text, from: 'en', to: 'ru' })
                 .then(res => $scope.translate = res.data.toLowerCase())
             }, 300)
 
-        } else $scope.translate = ''
+        } else changeWord = true
     }
     $scope.onInputTranslate = text => {
         $timeout.cancel(timer)
+        changeTranslate = false
 
-        if ($scope.translate) {
+        if ($scope.translate && changeWord) {
 
             timer = $timeout(() => {
                 $http.post('/translate', { text, from: 'ru', to: 'en' })
                 .then(res => $scope.word = res.data.toLowerCase())
             }, 300)
 
-        } else $scope.word = ''
+        } else changeTranslate = true
     }
 }])
