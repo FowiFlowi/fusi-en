@@ -4,7 +4,7 @@ const logger = require('../utils/logger'),
 	Fuser = new require('../models/fuser'),
 	Fusien = new require('../models/fusien'),
 	Word = new require('../models/word'),
-	translate = require('google-translate-api')
+	translate = require('translate-api')
 
 exports.getRoot = (req, res) => res.status(200).redirect('/home')
 exports.getHome = (req, res) => res.render('index')
@@ -108,9 +108,7 @@ exports.postWho = (req, res) => {
 exports.postTranslate = (req, res) => {
 	let body = req.body
 
-	translate(body.text, { from: body.from, to: body.to, raw: true })
-	.then(result => {
-		let a = eval(result.raw)
-		res.send(a[0][0][0])
-	})
+	translate.getText(body.text, { from: body.from, to: body.to })
+	.then(result => res.send(result.text))
+	.catch(e => logger.error(e))
 }
